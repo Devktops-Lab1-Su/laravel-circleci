@@ -16,7 +16,7 @@ jobs:
           name: SSH to Server
           command: |
             echo "Access the server"
-            ssh $USERNAME@$HOST "cd /home/ubuntu/devops && ./deploy.sh"
+            ssh $USERNAME@$HOST -o StrictHostKeyChecking=no "cd /home/ubuntu/devops && ./deploy.sh"
 
 workflows:
   version: 2
