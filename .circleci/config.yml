@@ -16,7 +16,7 @@ jobs:
           name: SSH to Server
           command: |
             echo "Access the server"
-            ssh -i ~/.ssh/laravel-github $USERNAME@$LIGHTSAIL_SERVER_IP
+            ssh -i $SSH_KEY $USERNAME@$LIGHTSAIL_SERVER_IP
             cd /home/ubuntu/devops && ./deploy.sh
 
 workflows:
