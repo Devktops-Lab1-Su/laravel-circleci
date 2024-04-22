@@ -1,0 +1,32 @@
+version: 2.1
+
+jobs:
+  deploy:
+    docker:
+      - image: circleci/node:14.17.0  # Choose an image suitable for your project
+
+    steps:
+      - checkout  # Checkout your code from the repository
+
+      # Install any dependencies required for deployment
+      - run:
+          name: Install Dependencies
+          command: npm install  # Or any other command suitable for your project
+
+      # Deploy script to the Lightsail server using SSH
+      - run:
+          name: Deploy to Lightsail Server
+          command: |
+            echo "$SSH_KEY" > ssh_key.pem  # Save SSH key to a temporary file
+            chmod 600 ssh_key.pem  # Set appropriate permissions for the key file
+            ssh -i ssh_key.pem \
+              ubuntu@${LIGHTSAIL_SERVER_IP} 'bash -s' < deploy.sh
+          environment:
+            LIGHTSAIL_SERVER_IP: $LIGHTSAIL_SERVER_IP
+          no_output_timeout: 10m  # Extend timeout for long-running SSH commands
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - deploy
