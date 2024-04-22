@@ -16,7 +16,7 @@ jobs:
           name: SSH to Server
           command: |
             echo "Access the server"
-            ssh $USERNAME@$HOST -o StrictHostKeyChecking=no
+            ssh-copy-id -f $USERNAME@$HOST
             cd /home/ubuntu/devops ./deploy.sh
 
 workflows:
