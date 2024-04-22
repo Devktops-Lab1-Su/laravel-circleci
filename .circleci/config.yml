@@ -16,7 +16,7 @@ jobs:
           name: SSH to Server
           command: |
             echo "Access the server"
-            ssh -i $SSH_KEY $USERNAME@$LIGHTSAIL_SERVER_IP
+            ssh $USERNAME@$HOST -o StrictHostKeyChecking=no
             cd /home/ubuntu/devops && ./deploy.sh
 
 workflows:
