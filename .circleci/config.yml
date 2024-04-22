@@ -20,7 +20,8 @@ jobs:
             echo "$SSH_KEY" > ssh_key.pem  # Save SSH key to a temporary file
             chmod 600 ssh_key.pem  # Set appropriate permissions for the key file
             ssh -i ssh_key.pem \
-              ubuntu@${LIGHTSAIL_SERVER_IP} 'bash -s' < cd /home/ubuntu/devops && ./deploy.sh
+              ubuntu@${LIGHTSAIL_SERVER_IP}
+              script: "cd /home/ubuntu/devops && ./deploy.sh"
           environment:
             LIGHTSAIL_SERVER_IP: $LIGHTSAIL_SERVER_IP
           no_output_timeout: 10m  # Extend timeout for long-running SSH commands
